@@ -1,7 +1,12 @@
 import axios from 'axios';
+
+const envApiUrl = import.meta.env.VITE_API_URL;
+const baseURL = (envApiUrl && envApiUrl.trim()) || 'http://localhost:5000/api';
+
 const API = axios.create({
-baseURL: import.meta.env.VITE_API_URL,
+baseURL: baseURL.replace(/\/$/, ''),
 });
+
 export const getItems = () => API.get('/items');
 export const createItem = (data) => API.post('/items', data);
 export const deleteItem = (id) => API.delete(`/items/${id}`);
